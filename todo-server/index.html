@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>TODO</title>
+    <meta charset="UTF-8">
+    <script>
+      async function loadTodoItems() {
+        const response = await fetch('http://localhost:3000/api/todos');
+        const data = await response.json();
+        console.log(data);
+      }
+
+      async function createTodoItem() {
+        const response = await fetch('http://localhost:3000/api/todos', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: 'Сходить за хлебом',
+            owner: 'Тимофей'
+          })
+        });
+        const data = await response.json();
+        console.log(data);
+      }
+
+      async function getTodoItem() {
+        const response = await fetch('http://localhost:3000/api/todos/1608029025426');
+        const data = await response.json();
+        console.log(data);
+      }
+
+      async function markTodoAsDone() {
+        const response = await fetch('http://localhost:3000/api/todos/1608029025426', {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ done: true })
+        });
+        const data = await response.json();
+        console.log(data);
+      }
+
+      async function deleteTodoItem() {
+        const response = await fetch('http://localhost:3000/api/todos/1608029025426', {
+          method: 'DELETE',
+        });
+        if (response.status === 404)
+          console.log('Не удалось удалить дело, так как его не существует');
+        const data = await response.json();
+        console.log(data);
+      }
+    </script>
+
+    <script defer src="main.js"></script>
+	<link rel="stylesheet" href="style.css">
+  </head>
+  <body class="body">
+    <main class="blog">
+      <div class="block__nav">
+        <h1 class="blog__title">Список статей - страница / </h1> <p class="active-page"></p>
+      </div>
+      <section id="blog__container" class="blog__container">
+      </section>
+      <section class="blog__page-nav">
+        <ul id="page-list" class="blog__page-list">
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>
